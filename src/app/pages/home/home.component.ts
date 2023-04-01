@@ -9,11 +9,17 @@ import { Dice } from 'src/app/features/dice/dice.model';
 })
 export class HomeComponent implements OnInit {
   diceGroups: DiceGroup[] = [];
+  target: number | null = null;
 
   constructor() {}
 
   ngOnInit(): void {
     this.initGroups();
+    this.diceGroups[0].value;
+  }
+
+  isGroupValid(group: DiceGroup): boolean {
+    return this.target === null || group.value === this.target;
   }
 
   private initGroups(): void {
@@ -22,5 +28,13 @@ export class HomeComponent implements OnInit {
         this.diceGroups.push(new DiceGroup([new Dice(i), new Dice(j)]));
       }
     }
+  }
+
+  get probability(): number {
+    const validGroups = this.diceGroups.filter((group) =>
+      this.isGroupValid(group)
+    );
+
+    return Math.round((validGroups.length / this.diceGroups.length) * 100);
   }
 }

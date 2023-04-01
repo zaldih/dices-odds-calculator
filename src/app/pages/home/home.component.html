@@ -1,19 +1,34 @@
 <h1 class="title light">What do you need?</h1>
 
-<mat-form-field>
-  <mat-label></mat-label>
-  <input
-    matInput
-    type="number"
-    min="2"
-    max="12"
-    #frequencyInput
-    class="frequency-input"
-  />
-</mat-form-field>
+<div class="input-container">
+  <mat-form-field appearance="outline" [style.width.px]="120">
+    <input
+      matInput
+      [(ngModel)]="target"
+      type="number"
+      min="2"
+      max="12"
+      #frequencyInput
+      class="frequency-input"
+      onFocus="this.select()"
+    />
+  </mat-form-field>
+
+  <div class="probability">
+    <app-animated-number
+      class="probability-value"
+      [duration]="15"
+      [digit]="probability"
+    ></app-animated-number>
+    <span class="probability-unit">%</span>
+  </div>
+</div>
 
 <div class="dice-possibles">
   <div class="group" *ngFor="let group of diceGroups">
-    <app-dice-group [group]="group"></app-dice-group>
+    <app-dice-group
+      [group]="group"
+      [ngClass]="{ disabled: !isGroupValid(group) }"
+    ></app-dice-group>
   </div>
 </div>

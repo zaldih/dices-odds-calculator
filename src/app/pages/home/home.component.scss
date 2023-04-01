@@ -3,11 +3,37 @@
   opacity: 0.6;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 100px;
+  margin-top: 30px;
+
+  .frequency-input {
+    font-size: 3em !important;
+  }
+
+  .probability {
+    font-size: 4em;
+    opacity: 0.6;
+  }
+}
+
 .dice-possibles {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 8px;
   justify-content: center;
+
+  .disabled {
+    opacity: 0.1;
+  }
+
+  & * {
+    transition: all 0.1s ease-in-out;
+    user-select: none;
+  }
 }
 
 @media (max-width: 1040px) {
