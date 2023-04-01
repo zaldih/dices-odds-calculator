@@ -19,7 +19,11 @@ export class HomeComponent implements OnInit {
   }
 
   isGroupValid(group: DiceGroup): boolean {
-    return this.target === null || group.value === this.target;
+    const isValidSumOfDices = () => group.value === this.target;
+    const isValidDices = () =>
+      group.dices.some((dice) => dice.value === this.target);
+
+    return this.target === null || isValidSumOfDices() || isValidDices();
   }
 
   private initGroups(): void {
