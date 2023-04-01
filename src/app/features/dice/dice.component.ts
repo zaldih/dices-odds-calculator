@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Dice } from './dice.model';
 
 @Component({
   selector: 'app-dice',
@@ -6,10 +7,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./dice.component.scss'],
 })
 export class DiceComponent {
-  @Input() value: number = 1;
+  @Input() dice: Dice = new Dice();
   color: string = 'dark';
 
   get diceUrl(): string {
-    return `assets/dice/dice-${this.value}-${this.color}.svg`;
+    return `assets/dices/dice-${this.dice.value}-${this.color}.svg`;
   }
 }

@@ -11,3 +11,9 @@
     class="frequency-input"
   />
 </mat-form-field>
+
+<div class="dice-possibles">
+  <div class="group" *ngFor="let group of diceGroups">
+    <app-dice-group [group]="group"></app-dice-group>
+  </div>
+</div>

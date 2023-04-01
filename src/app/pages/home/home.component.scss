@@ -2,3 +2,17 @@
   font-size: 5em;
   opacity: 0.6;
 }
+
+.dice-possibles {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  justify-content: center;
+}
+
+@media (max-width: 1040px) {
+  .dice-possibles {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

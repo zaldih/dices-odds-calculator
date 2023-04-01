@@ -1,8 +1,8 @@
 <div>
-  <ng-container *ngTemplateOutlet="dice"></ng-container>
+  <ng-container *ngTemplateOutlet="diceTemplate"></ng-container>
 </div>
 
-<ng-template #dice>
+<ng-template #diceTemplate>
   <!-- <object type="image/svg+xml" [data]="diceUrl"></object> -->
-  <img src="assets/dices/dice-{{ value }}-{{ color }}.svg" alt="dice" />
+  <img [src]="diceUrl" alt="dice" />
 </ng-template>

@@ -1,0 +1,18 @@
+.root {
+  display: inline-block;
+}
+
+.dice-group {
+  display: flex;
+  gap: 10px;
+  border: 1px solid black;
+  padding: 8px 15px;
+  border-radius: 6px;
+  background-color: #101010;
+}
+
+@media (max-width: 1040px) {
+  .dice-group {
+    flex-direction: column;
+  }
+}
