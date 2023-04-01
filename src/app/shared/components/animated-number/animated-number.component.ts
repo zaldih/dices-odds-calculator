@@ -2,6 +2,7 @@
 // igit.component.ts:306-341
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -20,6 +21,8 @@ export class AnimatedNumberComponent implements AfterViewInit, OnChanges {
   @Input() digit: number = 0;
   @ViewChild('animatedDigit') animatedDigit!: ElementRef;
   private prevDigit: number = 0;
+
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   animateCount() {
     if (!this.duration) {
@@ -44,12 +47,13 @@ export class AnimatedNumberComponent implements AfterViewInit, OnChanges {
       currentSinValue += sinValueIncrement;
       currentValue += valueIncrement * Math.sin(currentSinValue) ** 2 * 2;
 
-      element.nativeElement.textContent = Math.abs(Math.floor(currentValue));
+      element.nativeElement.textContent = Math.floor(currentValue);
 
       if (currentSinValue < Math.PI) {
         window.requestAnimationFrame(step);
       } else {
         this.prevDigit = this.digit;
+        element.nativeElement.textContent = endValue;
       }
     };
 

@@ -39,6 +39,6 @@ export class HomeComponent implements OnInit {
       this.isGroupValid(group)
     );
 
-    return Math.round((validGroups.length / this.diceGroups.length) * 100);
+    return +((validGroups.length / this.diceGroups.length) * 100).toFixed(2);
   }
 }
