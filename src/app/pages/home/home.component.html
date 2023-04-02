@@ -1,4 +1,4 @@
-<h1 class="title light">What do you need?</h1>
+<h1 class="title light unselectable">What do you need?</h1>
 
 <div class="input-container">
   <mat-form-field appearance="outline" [style.width.px]="120">
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="dice-possibles">
+<div class="dice-possibles unselectable">
   <div class="group" *ngFor="let group of diceGroups">
     <app-dice-group
       [group]="group"
