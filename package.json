@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "node ./scripts/add-timestamp-to-build.js && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -38,3 +38,4 @@
     "typescript": "~4.9.4"
   }
 }
+
