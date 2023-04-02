@@ -22,9 +22,13 @@ export class AnimatedNumberComponent implements AfterViewInit, OnChanges {
   @ViewChild('animatedDigit') animatedDigit!: ElementRef;
   private prevDigit: number = 0;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor() {}
 
   animateCount() {
+    if (!this.animatedDigit) {
+      return;
+    }
+
     if (!this.duration) {
       this.duration = 1000;
     }
