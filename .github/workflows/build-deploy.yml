@@ -29,6 +29,7 @@ jobs:
           npm run-script build -- --base-href="/dices-odds-calculator/"
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
