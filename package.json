@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production && node ./scripts/add-timestamp-to-build.js",
+    "build": "ng build --configuration production",
+    "postbuild": "node ./scripts/add-timestamp-to-build.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
