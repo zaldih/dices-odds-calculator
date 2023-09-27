@@ -1,17 +1,17 @@
 const fs = require("fs");
 
 const CONFIG = {
-  ENVIRONMENT_PATH: "./src/environments/environment.ts",
+  DIST_PATH: "./dist/diceodds/assets/version.txt",
 };
 
 addTimestampToBuild();
 
 function addTimestampToBuild() {
   const timestamp = getTimestamp();
-  const envText = fs.readFileSync(CONFIG.ENVIRONMENT_PATH, "utf8");
-  const newEnvText = replaceBuildDate(envText, timestamp);
-  fs.writeFileSync(CONFIG.ENVIRONMENT_PATH, newEnvText, "utf8");
-  console.log("Build timestamp setted: ", newEnvText);
+  fs.writeFileSync(CONFIG.DIST_PATH, timestamp, "utf8");
+  console.log(
+    `Build timestamp file created on ${CONFIG.DIST_PATH}: ${timestamp}`
+  );
 }
 
 function getTimestamp() {
@@ -24,8 +24,4 @@ function getTimestamp() {
   const minutes = now.getMinutes().toString().padStart(2, "0");
   const timestamp = `${day}-${month}-${year} ${hours}:${minutes}`;
   return timestamp;
-}
-
-function replaceBuildDate(envText, timestamp) {
-  return envText.replace(/(buildDate: )'(.*)'/g, `$1'${timestamp}'`);
 }

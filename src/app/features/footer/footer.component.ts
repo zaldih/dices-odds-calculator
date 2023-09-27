@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
 import { VersionService } from 'src/app/shared/services/version.service';
 
 @Component({
@@ -12,6 +13,13 @@ export class FooterComponent implements OnInit {
   constructor(private versionService: VersionService) {}
 
   ngOnInit() {
-    this.buildDate = this.versionService.getBuildVersion();
+    this.loadBuildDate();
+  }
+
+  private loadBuildDate() {
+    this.versionService
+      .getBuildVersion()
+      .pipe(tap((buildDate) => (this.buildDate = buildDate)))
+      .subscribe();
   }
 }
