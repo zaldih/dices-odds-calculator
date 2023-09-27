@@ -6,7 +6,7 @@ on:
       - main
       - ci-setup
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,6 +28,9 @@ jobs:
           npm install
           npm run-script build -- --base-href="/dices-odds-calculator/"
 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
