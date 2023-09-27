@@ -10,11 +10,11 @@ This application calculates and shows you your odds of getting the number you ar
 
 ## Table of Contents
 
-- [🤔 Motivation](#motivation)
-- [🧮 Mathematical Explanation](#mathematical-explanation)
-- [📋 Possible Improvements](#possible-improvements)
-- [💞 Contributing](#contributing)
-- [📜 License](#license)
+- [🤔 Motivation](#-motivation)
+- [🧮 Mathematical Explanation](#-mathematical-explanation)
+- [📋 Possible Improvements](#-possible-improvements)
+- [💞 Contributing](#-contributing)
+- [📜 License](#-license)
 
 ## 🤔 Motivation
 
