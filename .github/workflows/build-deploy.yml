@@ -6,7 +6,7 @@ on:
       - main
       - ci-setup
 jobs:
-  build and deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
