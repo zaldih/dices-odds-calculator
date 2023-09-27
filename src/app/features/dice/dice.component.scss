@@ -1,3 +1,19 @@
 div > svg {
   font-size: 5em;
 }
+
+.dice {
+  width: 60px;
+}
+
+@media (max-width: 938px) {
+  .dice {
+    width: 51px;
+  }
+}
+
+@media (max-width: 710px) {
+  .dice {
+    width: 30px;
+  }
+}
