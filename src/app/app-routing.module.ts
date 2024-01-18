@@ -8,6 +8,11 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   {
+    path: 'poker',
+    loadComponent: () =>
+      import('./pages/poker/poker.component').then((m) => m.PokerComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

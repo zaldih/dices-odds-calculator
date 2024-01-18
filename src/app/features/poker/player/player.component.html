@@ -1,0 +1,30 @@
+<div class="root" [class.folded]="player.folded" [class.oponent]="oponent">
+  @if(oponent){
+  <div>Rival</div>
+  }@else{
+  <div style="border-bottom: 1px solid #c8c8c8; margin-bottom: 8px">You</div>
+  }
+
+  <div class="cards">
+    <app-card class="card" [card]="card1"></app-card>
+    <app-card class="card" [card]="card2"></app-card>
+  </div>
+
+  <div class="stats">
+    <div>win:</div>
+    <div class="win-probability">
+      <app-animated-number
+        class="probability-value"
+        [duration]="15"
+        [digit]="winRatio"
+      ></app-animated-number>
+      <span class="probability-unit">%</span>
+    </div>
+    <div class="tie-probability">Tie: {{ tieRatio }}%</div>
+    @if(!oponent){
+    <div class="hand-name">{{ player.handName }}</div>
+    }
+  </div>
+
+  <button mat-button (click)="foldToggle()">{{ foldText }}</button>
+</div>

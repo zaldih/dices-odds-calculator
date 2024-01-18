@@ -1,0 +1,30 @@
+.root {
+  .cards {
+    display: flex;
+    gap: 12px;
+  }
+
+  &.folded {
+    opacity: 0.5;
+  }
+
+  &.oponent {
+    .cards {
+      gap: 4px;
+    }
+
+    .card {
+      max-width: 50px;
+    }
+  }
+}
+
+.stats {
+  text-align: center;
+
+  .win-probability {
+    font-size: 1.6em;
+    margin: 4px 0;
+    margin-bottom: 8px;
+  }
+}

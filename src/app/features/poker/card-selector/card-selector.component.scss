@@ -1,0 +1,15 @@
+.cards-shelf {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+}
+
+.card-container {
+  &:hover {
+    opacity: 0.65;
+    cursor: pointer;
+  }
+}
+
+.card-img {
+  width: 54px;
+}

@@ -1,0 +1,42 @@
+<div class="root">
+  <div
+    style="
+      margin-bottom: 48px;
+      margin-bottom: 48px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    "
+  >
+    @for(i of [1,2,3,4,5]; track i){
+    <app-player
+      [player]="players[i]"
+      [oponent]="true"
+      class="player"
+    ></app-player>
+    }
+  </div>
+
+  <div style="margin-bottom: 24px">
+    <app-poker-community-cards
+      class="community-cards"
+    ></app-poker-community-cards>
+  </div>
+
+  <div style="margin-bottom: 48px">
+    <app-player [player]="players[0]" class="player"></app-player>
+  </div>
+
+  <button mat-flat-button style="margin: 4px" (click)="remove()">Remove</button>
+  <button mat-flat-button style="margin: 4px" (click)="reset()">reset</button>
+  <button mat-flat-button style="margin: 4px" (click)="simulate()">
+    re-calculate
+  </button>
+
+  <div style="margin-top: 12px">
+    <app-card-selector
+      (cardSelected)="onCardSelected($event)"
+    ></app-card-selector>
+  </div>
+</div>
