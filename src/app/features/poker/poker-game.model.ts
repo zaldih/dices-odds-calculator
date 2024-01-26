@@ -61,36 +61,63 @@ export class PokerGame {
       throw new Error('Min. 2 players required in the game.');
     }
 
-    let winner = this.players[0];
+    let winners: PokerPlayer[] = [this.players[0]];
+    let maxHandValue = this.players[0].evaluateHand(this.communityCards);
+
     for (let i = 1; i < this.players.length; i++) {
       if (this.players[i].folded) {
         continue;
       }
 
-      const currentHand = winner.evaluateHand(this.communityCards);
-      const nextHand = this.players[i].evaluateHand(this.communityCards);
+      const currentHand = this.players[i].evaluateHand(this.communityCards);
 
-      if (currentHand.value < nextHand.value) {
-        winner = this.players[i];
-        continue;
-      }
-
-      if (nextHand.value === currentHand.value) {
-        if (nextHand.highestCard > currentHand.highestCard) {
-          winner = this.players[i];
+      if (currentHand.value > maxHandValue.value) {
+        maxHandValue = currentHand;
+        winners = [this.players[i]];
+      } else if (currentHand.value === maxHandValue.value) {
+        if (currentHand.highestCard > maxHandValue.highestCard) {
+          maxHandValue = currentHand;
+          winners = [this.players[i]];
           continue;
         }
 
-        if (nextHand.highestCard === currentHand.highestCard) {
-          // console.debug('Tie', nextHand, currentHand);
-          winner.setTie();
-          this.players[i].setTie();
-          return null;
+        // Get the highest card of all
+        const prevPlayerCards = this.players[i - 1]
+          .getCards()
+          .sort((a, b) => b.rank - a.rank)
+          .map((card) => card.rank);
+        const actPlayerCards = this.players[i]
+          .getCards()
+          .sort((a, b) => b.rank - a.rank)
+          .map((card) => card.rank);
+
+        if (
+          prevPlayerCards[0] < actPlayerCards[0] ||
+          prevPlayerCards[1] < actPlayerCards[1]
+        ) {
+          winners = [this.players[i]];
+          continue;
         }
+
+        if (
+          prevPlayerCards[0] > actPlayerCards[0] ||
+          prevPlayerCards[1] > actPlayerCards[1]
+        ) {
+          continue;
+        }
+
+        winners.push(this.players[i]);
       }
     }
 
-    return winner;
+    if (winners.length === 1) {
+      return winners[0];
+    } else {
+      for (const winner of winners) {
+        winner.setTie();
+      }
+      return null; // Indicates a tie
+    }
   }
 
   generateDeck(): Card[] {

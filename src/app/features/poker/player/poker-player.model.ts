@@ -11,17 +11,31 @@ import {
   isTwoPair,
 } from '../poker-hand-evaluator';
 
+export type HandRanks =
+  | 'Royal Flush'
+  | 'Straight Flush'
+  | 'Four of a Kind'
+  | 'Full House'
+  | 'Flush'
+  | 'Straight'
+  | 'Three of a Kind'
+  | 'Two Pair'
+  | 'One Pair'
+  | 'High Card';
+
 export interface HandEvaluationResult {
-  rank: string;
+  rank: HandRanks;
   highestCard: CardRank;
   value: number;
 }
 
 export class PokerPlayer {
+  private _id = Math.random();
   private cards: Card[] = [];
   private stats = { winsPercentage: 0, tiesPercentage: 0, wins: 0, ties: 0 };
   folded = false;
   handName = '';
+  handNames: { [key: string]: number } = {};
 
   constructor(cards: Card[]) {
     this.cards = cards;
@@ -65,6 +79,11 @@ export class PokerPlayer {
   evaluateHand(communityCards: Card[]): HandEvaluationResult {
     const result = this._evaluateHand(communityCards);
     this.handName = result.rank;
+    if (!this.handNames[result.rank]) {
+      this.handNames[result.rank] = 0;
+    }
+
+    this.handNames[result.rank]++;
     return result;
   }
 
@@ -91,6 +110,7 @@ export class PokerPlayer {
   private _evaluateHand(communityCards: Card[]): HandEvaluationResult {
     const cards = [...this.cards, ...communityCards];
     const sortedCards = cards.sort((a, b) => b.rank - a.rank);
+    const sortedUserCards = [...this.cards].sort((a, b) => b.rank - a.rank);
 
     if (isRoyalFlush(sortedCards)) {
       return {
@@ -160,6 +180,14 @@ export class PokerPlayer {
       };
     }
 
-    return { rank: 'High Card', highestCard: sortedCards[0].rank, value: 0 };
+    return {
+      rank: 'High Card',
+      highestCard: sortedCards[0].rank,
+      value: 0,
+    };
+  }
+
+  get id() {
+    return this._id;
   }
 }
