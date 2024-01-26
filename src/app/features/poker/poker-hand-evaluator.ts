@@ -1,4 +1,4 @@
-import { Card, CardRank, CardSuit } from './card/card.interface';
+import { Card, CardSuit } from './card/card.interface';
 
 const sortByRank = (cards: Card[]): Card[] => {
   return cards.slice().sort((a, b) => b.rank - a.rank);
@@ -21,25 +21,67 @@ const isSequence = (
   if (cards.length < count) {
     return false;
   }
-  let comparableCards = cards;
 
-  if (sameSuit) {
-    if (comparableCards.length < count) {
-      return false;
+  const check = (cards: Card[]): boolean => {
+    let counter = 0;
+    let prevRank = 0;
+
+    for (const card of cards) {
+      // Check Ace, 5, 4, 3 and 2.
+      if ((prevRank === 14 && card.rank === 5) || prevRank === card.rank + 1) {
+        counter++;
+      } else {
+        counter = 0;
+      }
+
+      // Check if some straigh include
+      if (counter + 1 >= count) {
+        return true;
+      }
+
+      prevRank = card.rank;
     }
-  }
-
-  if (checkRoyal && comparableCards[0].rank !== 14) {
     return false;
+  };
+
+  if (!sameSuit) {
+    const ids = cards.map(({ rank }) => rank);
+    const filtered = cards.filter(
+      ({ rank }, index) => !ids.includes(rank, index + 1)
+    );
+    return check(filtered);
   }
 
-  for (let i = 1; i < count; i++) {
-    if (comparableCards[i - 1].rank !== comparableCards[i].rank + 1) {
-      return false;
+  // Separate cards by Suit.
+  const separatedCards = cards.reduce((a, b) => {
+    const group = b.suit;
+    if (!a[group]) {
+      a[group] = [];
+    }
+    a[group] = [...a[group], b];
+    return a;
+  }, {} as { [key: string]: Card[] });
+
+  const aaa = Object.values(separatedCards).filter(
+    (cards) => cards.length >= count
+  );
+
+  for (const cards of aaa) {
+    if (cards.length < count) {
+      continue;
+    }
+
+    if (checkRoyal && cards[0].rank !== 14) {
+      continue;
+    }
+
+    const checkResult = check(cards);
+    if (checkResult) {
+      return true;
     }
   }
 
-  return true;
+  return false;
 };
 
 const isSameSuitCount = (cards: Card[], count: number): boolean => {
@@ -52,7 +94,7 @@ const isSameSuitCount = (cards: Card[], count: number): boolean => {
   );
 };
 
-export function isHighCard(cards: Card[]): boolean {
+export function isHighCard(_cards: Card[]): boolean {
   return true;
 }
 
@@ -74,7 +116,7 @@ export function isThreeOfAKind(cards: Card[]): boolean {
 
 export function isStraight(
   cards: Card[],
-  sameSuit: boolean,
+  sameSuit: boolean = false,
   checkRoyal = false
 ): boolean {
   if (cards.length < 5) {
