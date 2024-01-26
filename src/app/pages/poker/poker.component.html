@@ -41,6 +41,7 @@
   <div style="margin-top: 12px">
     <app-card-selector
       (cardSelected)="onCardSelected($event)"
+      [disabledCards]="cardsUsed"
     ></app-card-selector>
   </div>
 </div>

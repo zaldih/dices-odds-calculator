@@ -5,6 +5,11 @@
 }
 
 .card-container {
+  &.disabled {
+    opacity: 0.65;
+    filter: grayscale(1);
+  }
+
   &:hover {
     opacity: 0.65;
     cursor: pointer;

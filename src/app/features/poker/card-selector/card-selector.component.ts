@@ -1,8 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 import { Card, CardSuit } from '../card/card.interface';
 import { PokerService } from '../poker.service';
 import { CardComponent } from '../card/card.component';
+
+interface SelectorCard {
+  card: Card;
+  disabled: boolean;
+}
 
 @Component({
   selector: 'app-card-selector',
@@ -11,10 +24,11 @@ import { CardComponent } from '../card/card.component';
   templateUrl: './card-selector.component.html',
   styleUrl: './card-selector.component.scss',
 })
-export class CardSelectorComponent implements OnInit {
-  cards: Card[] = [];
+export class CardSelectorComponent implements OnInit, OnChanges {
+  cards: SelectorCard[] = [];
 
   @Output() cardSelected = new EventEmitter<Card>();
+  @Input() disabledCards: Card[] = [];
 
   constructor(private readonly pokerService: PokerService) {}
 
@@ -22,8 +36,24 @@ export class CardSelectorComponent implements OnInit {
     this.generateCards();
   }
 
-  selectCard(card: Card): void {
-    this.cardSelected.emit(card);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['disabledCards']) {
+      this.cards = this.cards.map((card) => {
+        card.disabled = this.disabledCards.some(
+          (disabledCard) =>
+            disabledCard.rank === card.card.rank &&
+            disabledCard.suit === card.card.suit
+        );
+        return card;
+      });
+    }
+  }
+
+  selectCard(card: SelectorCard): void {
+    if (card.disabled) {
+      return;
+    }
+    this.cardSelected.emit(card.card);
   }
 
   private generateCards() {
@@ -34,7 +64,7 @@ export class CardSelectorComponent implements OnInit {
           suit: CardSuit[suit as keyof typeof CardSuit],
         };
 
-        this.cards = [...this.cards, card];
+        this.cards = [...this.cards, { card, disabled: false }];
       }
     }
   }

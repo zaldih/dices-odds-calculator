@@ -1,8 +1,12 @@
 <div class="root">
   <div class="cards-shelf">
     @for (card of cards ; track card) {
-    <div class="card-container" (click)="selectCard(card)">
-      <app-card [card]="card" [mode]="'selector'"></app-card>
+    <div
+      class="card-container"
+      [class.disabled]="card.disabled"
+      (click)="selectCard(card)"
+    >
+      <app-card [card]="card.card" [mode]="'selector'"></app-card>
     </div>
     }
   </div>
