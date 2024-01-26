@@ -5,7 +5,7 @@ import { Card } from 'src/app/features/poker/card/card.interface';
 import { PlayerComponent } from 'src/app/features/poker/player/player.component';
 import { PokerPlayer } from 'src/app/features/poker/player/poker-player.model';
 import { PokerCommunityCardsComponent } from 'src/app/features/poker/poker-community-cards/poker-community-cards.component';
-import { PokerService } from 'src/app/features/poker/poker.service';
+import { GAME_LIMIT, PokerService } from 'src/app/features/poker/poker.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
@@ -23,6 +23,58 @@ import { SharedModule } from 'src/app/shared/shared.module';
 })
 export class PokerComponent {
   cardsUsed: Card[] = [];
+  handStats = [
+    {
+      name: 'Royal Flush',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'Straight Flush',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'Four of a Kind',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'Full House',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'Flush',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'Straight',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'Three of a Kind',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'Two Pair',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'One Pair',
+      probYou: 0,
+      probVillain: 0,
+    },
+    {
+      name: 'High Card',
+      probYou: 0,
+      probVillain: 0,
+    },
+  ];
 
   constructor(private readonly pokerService: PokerService) {}
 
@@ -52,7 +104,22 @@ export class PokerComponent {
   simulate(): void {
     setTimeout(() => {
       this.pokerService.simulateGames();
+      this.aa();
     }, 10);
+  }
+
+  private aa() {
+    const you = this.pokerService.getPlayers()[0];
+    const villain = this.pokerService.getPlayers()[0];
+    for (const handName of Object.keys(you.handNames)) {
+      const ea = this.handStats.find((stat) => stat.name === handName);
+      if (!ea) {
+        console.warn('No hand stat for:', handName);
+        return;
+      }
+      ea.probYou = (you.handNames[handName] / GAME_LIMIT) * 100;
+      ea.probVillain = (villain.handNames[handName] / GAME_LIMIT) * 100;
+    }
   }
 
   reset(): void {

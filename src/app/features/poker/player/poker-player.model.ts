@@ -100,6 +100,8 @@ export class PokerPlayer {
       wins: 0,
       ties: 0,
     };
+
+    this.handNames = {};
   }
 
   computeFinalStats(plays: number) {

@@ -45,3 +45,38 @@
     ></app-card-selector>
   </div>
 </div>
+
+<div style="display: inline-block; margin-top: 32px">
+  <table mat-table [dataSource]="handStats" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="prob-you">
+      <th mat-header-cell *matHeaderCellDef>Prob (you)</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.probYou | number : "1.1-1" }}%
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="prob-villain">
+      <th mat-header-cell *matHeaderCellDef>Prob (Rival)</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.probVillain | number : "1.1-1" }}%
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="['name', 'prob-you', 'prob-villain']"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['name', 'prob-you', 'prob-villain']"
+    ></tr>
+  </table>
+</div>

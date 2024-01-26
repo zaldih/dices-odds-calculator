@@ -3,6 +3,8 @@ import { PokerGame } from './poker-game.model';
 import { PokerPlayer } from './player/poker-player.model';
 import { Card, CardSuit } from './card/card.interface';
 
+export const GAME_LIMIT = 3e3;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,13 +32,11 @@ export class PokerService {
   simulateGames() {
     const start = Date.now();
     // const gameLimit = 1e4;
-    const gameLimit = 3e3;
-
     this.players.forEach((player) => {
       player.resetStats();
     });
 
-    for (let i = 0; i < gameLimit; i++) {
+    for (let i = 0; i < GAME_LIMIT; i++) {
       this.simulateGame({
         players: [...this.players],
         communityCards: [...this.communityCards],
@@ -44,11 +44,11 @@ export class PokerService {
     }
     const end = Date.now();
     this.players.forEach((player) => {
-      player.computeFinalStats(gameLimit);
+      player.computeFinalStats(GAME_LIMIT);
       player.evaluateHand(this.communityCards);
     });
 
-    console.log(`Played ${gameLimit} hands in ${end - start} ms`);
+    console.log(`Played ${GAME_LIMIT} hands in ${end - start} ms`);
     console.log(this.players);
   }
 
