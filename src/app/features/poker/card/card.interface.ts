@@ -15,10 +15,10 @@ export enum CardRank {
 }
 
 export enum CardSuit {
-  Hearts = 'Hearts',
-  Diamonds = 'Diamonds',
-  Clubs = 'Clubs',
-  Spades = 'Spades',
+  Hearts = 'Heart',
+  Diamonds = 'Diamond',
+  Clubs = 'Club',
+  Spades = 'Spade',
 }
 
 export interface Card {

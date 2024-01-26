@@ -11,13 +11,21 @@ import { PokerService } from '../poker.service';
 })
 export class CardComponent implements OnChanges {
   @Input() card: Card | undefined;
-  cardImageUrl = '';
+  /** Mode determine the size. */
+  @Input() mode: 'hero' | 'community' | 'villain' | 'selector' = 'hero';
+  rankText = '';
+  suitImageUrl = '';
 
   constructor(private readonly pokerService: PokerService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['card'] && this.card) {
-      this.cardImageUrl = this.pokerService.getCardImageUrl(this.card);
+      this.suitImageUrl = this.pokerService.getCardSuitUrl(this.card);
+      this.rankText = this.pokerService.getRankText(this.card);
     }
+  }
+
+  get suit(): string {
+    return this.card ? this.card.suit.toLowerCase() : ' ';
   }
 }

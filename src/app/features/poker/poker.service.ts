@@ -52,18 +52,18 @@ export class PokerService {
     console.log(this.players);
   }
 
-  getCardImageUrl(card: Card): string {
-    const CARD_NAMES: { [key: string]: string } = {
-      '11': 'jack',
-      '12': 'queen',
-      '13': 'king',
-      '14': 'ace',
-    };
-
+  getCardSuitUrl(card: Card): string {
     const name = card.suit.toLowerCase();
-    const rank = card.rank < 11 ? card.rank : CARD_NAMES[card.rank.toString()];
+    return `/assets/cards/${name}.svg`;
+  }
 
-    return `/assets/cards/${name}_${rank}.svg`;
+  getRankText(card: Card): string {
+    const { rank } = card;
+    const ranges = ['J', 'Q', 'K', 'A'];
+    if (rank <= 10) {
+      return rank.toString();
+    }
+    return ranges[rank - 11];
   }
 
   getPlayers(): PokerPlayer[] {

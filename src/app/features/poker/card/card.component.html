@@ -1,6 +1,14 @@
-<div class="root">
+<div class="root" [class]="mode">
   @if(card){
-  <img [src]="cardImageUrl" />
+  <div class="card" [class]="suit">
+    <div class="range">
+      {{ rankText }}
+    </div>
+
+    <div class="suit">
+      <img [src]="suitImageUrl" />
+    </div>
+  </div>
   }@else{
   <img src="/assets/cards/back-red.svg" />
   }

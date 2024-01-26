@@ -6,8 +6,13 @@
   }
 
   <div class="cards">
-    <app-card class="card" [card]="card1"></app-card>
-    <app-card class="card" [card]="card2"></app-card>
+    @if(oponent){
+    <app-card class="card" [card]="card1" [mode]="'villain'"></app-card>
+    <app-card class="card" [card]="card2" [mode]="'villain'"></app-card>
+    }@else{
+    <app-card class="card" [card]="card1" [mode]="'hero'"></app-card>
+    <app-card class="card" [card]="card2" [mode]="'hero'"></app-card>
+    }
   </div>
 
   <div class="stats">

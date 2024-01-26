@@ -2,16 +2,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Card, CardSuit } from '../card/card.interface';
 import { PokerService } from '../poker.service';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-card-selector',
   standalone: true,
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './card-selector.component.html',
   styleUrl: './card-selector.component.scss',
 })
 export class CardSelectorComponent implements OnInit {
-  cards: { imagen: string; card: Card }[] = [];
+  cards: Card[] = [];
 
   @Output() cardSelected = new EventEmitter<Card>();
 
@@ -33,13 +34,7 @@ export class CardSelectorComponent implements OnInit {
           suit: CardSuit[suit as keyof typeof CardSuit],
         };
 
-        this.cards = [
-          ...this.cards,
-          {
-            imagen: this.pokerService.getCardImageUrl(card),
-            card,
-          },
-        ];
+        this.cards = [...this.cards, card];
       }
     }
   }

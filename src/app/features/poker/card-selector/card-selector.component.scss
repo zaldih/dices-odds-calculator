@@ -1,6 +1,7 @@
 .cards-shelf {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: repeat(13, 1fr);
+  gap: 5px;
 }
 
 .card-container {
@@ -8,8 +9,4 @@
     opacity: 0.65;
     cursor: pointer;
   }
-}
-
-.card-img {
-  width: 54px;
 }

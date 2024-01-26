@@ -1,8 +1,8 @@
 <div class="root">
   <div class="cards-shelf">
-    @for (card of cards ; track card.imagen) {
-    <div class="card-container" (click)="selectCard(card.card)">
-      <img class="card-img" [src]="card.imagen" />
+    @for (card of cards ; track card) {
+    <div class="card-container" (click)="selectCard(card)">
+      <app-card [card]="card" [mode]="'selector'"></app-card>
     </div>
     }
   </div>
